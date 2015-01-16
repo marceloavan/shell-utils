@@ -16,5 +16,5 @@ fi
 
 # TODO - convert 'exclude' to dinamically pattern in an array
 echo "Start backuping..."
-rsync -r --exclude *Google\ Drive/ --exclude *Dropbox/ $HOME/* $TO_BACK_UP --progress
+rsync -r --exclude="Google\ Drive/" --exclude="Dropbox/" $HOME/ $TO_BACK_UP --progress
 echo "Backup is finished."
