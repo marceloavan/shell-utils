@@ -20,10 +20,12 @@ sudo apt-get dist-upgrade
 # l1 - Flash Player
 # l2 - Multimedia codecs
 # l3 - Rar and other archiving utilities
-# l4 - Infos about hard, system and process
+# l4 - Infos about hard, system. partitions and process
+# l5 - Editors
 sudo apt-get install \
 	pepperflashplugin-nonfree \
 	ubuntu-restricted-extras \
 	unace p7zip-rar sharutils rar arj lunzip lzip \
-	hardinfo htop \
+	hardinfo htop iptraf gparted unetbootin \
+	vim \
 	
