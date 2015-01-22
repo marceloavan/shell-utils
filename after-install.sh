@@ -38,11 +38,11 @@ sudo apt-get install \
 if which peco > /dev/null; then
 	echo "peco is already installed"
 else
-	rm -f /tmp/peco_linux_amd64.tar.gz
-	wget https://github.com/peco/peco/releases/download/v0.2.11/peco_linux_amd64.tar.gz -P /tmp
-	tar -zxf /tmp/peco_linux_amd64.tar.gz -C /tmp
-	sudo cp -p /tmp/peco_linux_amd64/peco /usr/bin
-	rm -rf /tmp/peco_linux_amd64/
-	rm -f /tmp/peco_linux_amd64.tar.gz
+	rm -f /tmp/peco_linux_amd64.tar.gz && \
+	wget https://github.com/peco/peco/releases/download/v0.2.11/peco_linux_amd64.tar.gz -P /tmp && \
+	tar -zxf /tmp/peco_linux_amd64.tar.gz -C /tmp && \
+	sudo cp -p /tmp/peco_linux_amd64/peco /usr/bin && \
+	rm -rf /tmp/peco_linux_amd64/ && \
+	rm -f /tmp/peco_linux_amd64.tar.gz && \
 	echo "peco v0.2.11 was installed"
 fi
