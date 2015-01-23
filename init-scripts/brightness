@@ -1,0 +1,75 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          brightness
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     S
+# Default-Stop:      0 6
+# Short-Description: Save and restore brightness level between restarts.
+# Description:       This script saves the brightness level between restarts.
+#                    It is called from the boot, halt and reboot scripts.
+### END INIT INFO
+
+
+# To install....
+# sudo ln -s /etc/init.d/brightness /etc/rc0.d/S25backlight
+# sudo ln -s /etc/init.d/brightness /etc/rcS.d/S25backlight
+# sudo ln -s /etc/init.d/brightness /etc/rc6.d/S25backlight
+
+PATH=/sbin:/bin:/usr/bin
+MODEL=$(basename $(ls -1 /sys/class/backlight/ | head -n1))
+SYSPATH="/sys/class/backlight/${MODEL}"
+SAVEDFILE=/var/lib/brightness-level
+DEFAULT_LEVEL=$(cat ${SYSPATH}/max_brightness)
+BRIGHTNESS_CONTROL=${SYSPATH}/brightness
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+do_status () {
+    echo -n "Current brightness level is `cat $BRIGHTNESS_CONTROL`"
+
+    if [ -f $SAVEDFILE ] ; then
+        echo ", saved value is `cat $SAVEDFILE`."
+        return 0
+    else
+        echo ", there is no saved value."
+        return 4
+    fi
+}
+
+case "$1" in
+  start|"")
+    [ "$VERBOSE" = no ] || log_action_begin_msg "Initializing brightness level"
+    # Restore brightness level
+    if [ ! -f "$SAVEDFILE" ]
+    then
+        echo "$DEFAULT_LEVEL" > "$SAVEDFILE"
+    fi
+    cat "$SAVEDFILE" > "$BRIGHTNESS_CONTROL"
+    ES=$?
+
+    [ "$VERBOSE" = no ] || log_action_end_msg $ES
+    ;;
+  stop)
+    # Save brightness level
+    [ "$VERBOSE" = no ] || log_action_begin_msg "Saving brightness level"
+    cat "$BRIGHTNESS_CONTROL" > "$SAVEDFILE"
+    ES=$?
+    [ "$VERBOSE" = no ] || log_action_end_msg $ES
+    ;;
+  status)
+    do_status
+    exit 0
+    ;;
+  restart|reload|force-reload)
+    echo "Error: argument '$1' not supported" >&2
+    exit 3
+    ;;
+  *)
+    echo "Usage: brightness start|stop" >&2
+    exit 3
+    ;;
+esac
+
+:
