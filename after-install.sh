@@ -12,6 +12,9 @@
 ####################################################################
 #!/bin/sh
 
+### PPA  ###
+sudo add-apt-repository ppa:webupd8team/java
+
 ### Update packs ###
 sudo apt-get update
 sudo apt-get upgrade
@@ -29,7 +32,7 @@ sudo apt-get install \
 	ubuntu-restricted-extras \
 	unace p7zip-rar sharutils rar arj lunzip lzip \
 	hardinfo htop iptraf gparted unetbootin \
-	vim git gitk \
+	vim git gitk oracle-java8-installer \
 
 
 ### Direct download ###
