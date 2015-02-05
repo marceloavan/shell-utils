@@ -2,18 +2,29 @@
 ##
 ## after-install.sh
 ##
-## A script to be executed after install a linux distro debian-like
+## A script to be executed after install a linux distro debian-like or
+## that uses .deb packages and apt-get utility
+##
 ## It's a way to install some util packages
 ##
 ## CHANGELOG:
 ## 1.0 - Script created
 ## 1.1 - Direct download
+## 1.2 - Spotify and source list
 ##
 ####################################################################
 #!/bin/sh
 
-### PPA  ###
+### PPA / SOURCES ###
 sudo add-apt-repository ppa:webupd8team/java
+if [ -e "/etc/apt/sources.list.d/spotify.list" ]; then
+	echo "source spotify list already exists in '/etc/apt/sources.list.d/spotify.list'"
+else
+	sudo sh -c 'echo "deb http://repository.spotify.com/ stable non-free" > /etc/apt/sources.list.d/spotify.list'
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
+	echo "source spotify list was included in '/etc/apt/sources.list.d/spotify.list'"
+fi
+
 
 ### Update packs ###
 sudo apt-get update
@@ -29,14 +40,13 @@ sudo apt-get dist-upgrade
 # l5 - Editors and programming
 sudo apt-get install \
 	pepperflashplugin-nonfree \
-	ubuntu-restricted-extras \
+	ubuntu-restricted-extras spotify-client \
 	unace p7zip-rar sharutils rar arj lunzip lzip \
-	hardinfo htop iptraf gparted unetbootin \
-	vim git gitk oracle-java8-installer \
+	hardinfo htop iptraf gparted unetbootin whois \
+	vim git gitk oracle-java8-installer oracle-java8-set-default \
 
 
 ### Direct download ###
-
 # peco v0.2.11
 if which peco > /dev/null; then
 	echo "peco is already installed"
