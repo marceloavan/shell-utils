@@ -16,7 +16,8 @@
 #!/bin/sh
 
 ### PPA / SOURCES ###
-sudo add-apt-repository ppa:webupd8team/java
+sudo add-apt-repository -y ppa:webupd8team/java
+sudo add-apt-repository -y ppa:libreoffice/ppa
 if [ -e "/etc/apt/sources.list.d/spotify.list" ]; then
 	echo "source spotify list already exists in '/etc/apt/sources.list.d/spotify.list'"
 else
