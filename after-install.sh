@@ -39,12 +39,14 @@ sudo apt-get dist-upgrade
 # l3 - Rar and other archiving utilities
 # l4 - Infos about hard, system. partitions and process
 # l5 - Editors and programming
+# l6 - build essentials
 sudo apt-get install \
 	pepperflashplugin-nonfree \
 	ubuntu-restricted-extras spotify-client \
 	unace p7zip-rar sharutils rar arj lunzip lzip \
 	hardinfo htop iptraf gparted unetbootin whois \
 	vim git gitk oracle-java8-installer oracle-java8-set-default \
+	gcc make build-essential \
 
 
 ### Direct download ###
