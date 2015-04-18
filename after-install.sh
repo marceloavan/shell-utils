@@ -47,7 +47,7 @@ sudo apt-get install \
 	ubuntu-restricted-extras spotify-client \
 	unace p7zip-rar sharutils rar arj lunzip lzip \
 	hardinfo htop iptraf gparted unetbootin whois \
-	vim git gitk oracle-java8-installer oracle-java8-set-default apache2 php5 python \
+	vim git gitk oracle-java8-installer oracle-java8-set-default apache2 php5 python npm \
 	gcc make build-essential \
 
 ### Direct download ###
