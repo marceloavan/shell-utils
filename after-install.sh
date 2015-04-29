@@ -37,14 +37,14 @@ sudo apt-get dist-upgrade
 
 ### Download via apt ###
 # l1 - Flash Player
-# l2 - Multimedia and codecs
+# l2 - Multimedia, codecs and drivers
 # l3 - Rar and other archiving utilities
 # l4 - Infos about hard, system. partitions and process
 # l5 - Editors and programming
 # l6 - build essentials
 sudo apt-get install \
 	pepperflashplugin-nonfree popcorn-time tribler \
-	ubuntu-restricted-extras spotify-client \
+	ubuntu-restricted-extras linux-firmware-nonfree spotify-client \
 	unace p7zip-rar sharutils rar arj lunzip lzip \
 	hardinfo htop iptraf gparted unetbootin whois \
 	vim git gitk oracle-java8-installer oracle-java8-set-default apache2 php5 python npm \
