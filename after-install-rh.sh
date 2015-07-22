@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #####################################################################
 ##
 ## after-install-rh.sh
@@ -5,37 +7,57 @@
 ## A script to be executed after install a linux distro redhat-like or
 ## that uses .rpm packages and yum utility
 ##
-## It's a way to install some util packages
+## It's a way to install some utils packages
+##
+## It's necessary have root privileges ;)
 ##
 ## CHANGELOG:
 ## 1.0 - Script created
+## 2.0 - New package organization and improved documentation
 ##
 ####################################################################
-#!/bin/sh
+
+#######################
+### Update packages ###
+#######################
+
 sudo yum check-update
 sudo yum check
 
-### Download via apt ###
-# l3 - Rar and other archiving utilities
-# l4 - Infos about hard, system. partitions and process
-# l5 - Editors and programming
-# l6 - build essentials
+########################
+### Download via yum ###
+########################
+# _____
 sudo yum install \
-	sharutils arj lzip \
-	htop iptraf gparted unetbootin whois \
-	vim git gitk python npm \
-	gcc make \
+	arj \
+	gcc \
+	git \
+	gitk \
+	gparted \
+	htop \
+	iptraf \
+	lzip \
+	make \
+	npm \
+	python \
+	sharutils \
+	unetbootin \
+	vim \
+	whois \
 
+#######################
 ### Direct download ###
-# peco v0.2.11
+#######################
+
+# peco v0.3.3 - Simplistic interactive filtering tool
 if which peco > /dev/null; then
 	echo "peco is already installed"
 else
 	rm -f /tmp/peco_linux_amd64.tar.gz && \
-	wget https://github.com/peco/peco/releases/download/v0.2.11/peco_linux_amd64.tar.gz -P /tmp && \
+	wget https://github.com/peco/peco/releases/download/v0.3.3/peco_linux_amd64.tar.gz -P /tmp && \
 	tar -zxf /tmp/peco_linux_amd64.tar.gz -C /tmp && \
-	sudo cp -p /tmp/peco_linux_amd64/peco /usr/bin && \
+	cp -p /tmp/peco_linux_amd64/peco /usr/bin && \
 	rm -rf /tmp/peco_linux_amd64/ && \
 	rm -f /tmp/peco_linux_amd64.tar.gz && \
-	echo "peco v0.2.11 was installed"
+	echo "peco v0.3.3 was installed sucessfully"
 fi
