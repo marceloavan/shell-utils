@@ -76,7 +76,7 @@ apt-get dist-upgrade
 # unetbootin - program to install Linux/BSD distributions to a partition or USB drive
 # vim - Vi IMproved, a programmers text editor
 # whois - client for the whois directory service
-apt-get install \
+apt-get -y install \
 	apache2 \
 	arj \
 	build-essential \
@@ -123,4 +123,15 @@ else
 	rm -rf /tmp/peco_linux_amd64/ && \
 	rm -f /tmp/peco_linux_amd64.tar.gz && \
 	echo "peco v0.3.3 was installed sucessfully"
+fi
+
+# atom v1.0.2 - Atom is a hackable text editor for the 21st century
+if which  atom > /dev/null; then
+	echo "atom is already installed"
+else
+	rm -f /tmp/atom-amd64.deb && \
+	wget https://github.com/atom/atom/releases/download/v1.0.2/atom-amd64.deb -P /tmp && \
+	dpkg -i /tmp/atom-amd64.deb && \
+	rm -f /tmp/atom-amd64.deb && \
+	echo "atom v1.0.2 was installed sucessfully"
 fi
