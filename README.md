@@ -1,5 +1,4 @@
 # shell utils repository ;)
--------------------
 
 This repository contains some utilities to use in shell / linux command line.
 
@@ -46,6 +45,7 @@ Using apt-get:
 
 Using direct download:
 - **peco v0.3.3** - Simplistic interactive filtering tool
+- **atom v1.0.2** - Atom is a hackable text editor for the 21st century
 
 after-install-rh.sh
 -------------------
