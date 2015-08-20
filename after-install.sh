@@ -16,6 +16,7 @@
 ## 1.1 - Direct download
 ## 1.2 - Spotify and source list
 ## 2.0 - New package organization and improved documentation
+## 2.1 - Download latest version of peco and atom. Upgrade atom plugins.
 ##
 ########################################################################
 
@@ -26,6 +27,7 @@
 add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:webupd8team/popcorntime
 add-apt-repository -y ppa:libreoffice/ppa
+
 if [ -e "/etc/apt/sources.list.d/spotify.list" ]; then
 	echo "source spotify list already exists in '/etc/apt/sources.list.d/spotify.list'"
 else
@@ -106,32 +108,41 @@ apt-get -y install \
 	unace \
 	unetbootin \
 	vim \
-	whois \
+	whois
+	
 
 #######################
 ### Direct download ###
 #######################
 
-# peco v0.3.3 - Simplistic interactive filtering tool
+# peco vLATEST - Simplistic interactive filtering tool
 if which peco > /dev/null; then
 	echo "peco is already installed"
 else
 	rm -f /tmp/peco_linux_amd64.tar.gz && \
-	wget https://github.com/peco/peco/releases/download/v0.3.3/peco_linux_amd64.tar.gz -P /tmp && \
+	LATEST=$(curl -s https://api.github.com/repos/peco/peco/releases/latest | grep 'browser_' | cut -d\" -f4 | grep peco_linux_amd64.tar.gz) && \
+	VERSION=$(echo $LATEST | cut -d/ -f8) && \
+	wget ${LATEST} -P /tmp && \
 	tar -zxf /tmp/peco_linux_amd64.tar.gz -C /tmp && \
 	cp -p /tmp/peco_linux_amd64/peco /usr/bin && \
 	rm -rf /tmp/peco_linux_amd64/ && \
 	rm -f /tmp/peco_linux_amd64.tar.gz && \
-	echo "peco v0.3.3 was installed sucessfully"
+	echo "peco ${VERSION} was installed sucessfully"
 fi
 
-# atom v1.0.2 - Atom is a hackable text editor for the 21st century
+# atom - Atom is a hackable text editor for the 21st century
 if which  atom > /dev/null; then
 	echo "atom is already installed"
 else
-	rm -f /tmp/atom-amd64.deb && \
-	wget https://github.com/atom/atom/releases/download/v1.0.2/atom-amd64.deb -P /tmp && \
-	dpkg -i /tmp/atom-amd64.deb && \
-	rm -f /tmp/atom-amd64.deb && \
-	echo "atom v1.0.2 was installed sucessfully"
+	PACKAGE=/tmp/atom-amd64.deb;
+
+	rm -f ${PACKAGE} && \
+	wget -t0 https://atom.io/download/deb -O ${PACKAGE} && \
+	dpkg -i ${PACKAGE} && \
+	rm -f ${PACKAGE} && \
+	VERSION=$(dpkg -I ${PACKAGE} | grep Version | cut -d: -f2) && \
+	echo "atom v${VERSION##*( )} was installed sucessfully"
+
+	echo "Upgrade apm packages"
+	apm upgrade --confirm false
 fi
