@@ -27,6 +27,7 @@
 add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:webupd8team/popcorntime
 add-apt-repository -y ppa:libreoffice/ppa
+add-apt-repository -y ppa:videolan/stable-daily
 
 if [ -e "/etc/apt/sources.list.d/spotify.list" ]; then
 	echo "source spotify list already exists in '/etc/apt/sources.list.d/spotify.list'"
@@ -77,6 +78,7 @@ apt-get dist-upgrade
 # unace - extract, test and view ACE archives
 # unetbootin - program to install Linux/BSD distributions to a partition or USB drive
 # vim - Vi IMproved, a programmers text editor
+# vlc - Popular media player
 # whois - client for the whois directory service
 apt-get -y install \
 	apache2 \
@@ -108,6 +110,7 @@ apt-get -y install \
 	unace \
 	unetbootin \
 	vim \
+	vlc \
 	whois
 	
 
@@ -146,3 +149,24 @@ else
 	echo "Upgrade apm packages"
 	apm upgrade --confirm false
 fi
+
+# Google Chrome 
+if which google-chrome > /dev/null; then
+	echo "Google chrome is already installed"
+else 
+	if [[ $(getconf LONG_BIT) = "64" ]]
+	then
+		echo "Installing Google Chrome 64bit" && \
+		wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+		dpkg -i google-chrome-stable_current_amd64.deb && \
+		rm -f google-chrome-stable_current_amd64.deb && \
+		echo "Google Chrome was installed sucessfully"
+	else
+		echo "Installing Google Chrome 32bit" && \
+		wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb && \
+		dpkg -i google-chrome-stable_current_i386.deb && \
+		rm -f google-chrome-stable_current_i386.deb && \
+		echo "Google Chrome was installed sucessfully"
+	fi
+fi
+

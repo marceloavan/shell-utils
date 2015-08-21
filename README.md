@@ -41,11 +41,13 @@ Using apt-get:
 - **unace** - extract, test and view ACE archives
 - **unetbootin** - program to install Linux/BSD distributions to  a partition or USB drive
 - **vim** - Vi IMproved, a programmers text editor
+- **vlc** - Popular media player
 - **whois** - client for the whois directory service
 
 Using direct download:
-- **peco v0.3.3** - Simplistic interactive filtering tool
-- **atom v1.0.2** - Atom is a hackable text editor for the 21st century
+- **peco LATEST** - Simplistic interactive filtering tool
+- **atom LATEST** - Atom is a hackable text editor for the 21st century
+- **google-chrome LATEST** - Google Chrome is a web browser developed by Google.
 
 after-install-rh.sh
 -------------------
