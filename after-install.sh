@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ########################################################################
 ##
@@ -20,153 +20,58 @@
 ##
 ########################################################################
 
-#####################
-### PPA / Sources ###
-#####################
+# Load colors
+. ./config/colors.sh
 
-add-apt-repository -y ppa:webupd8team/java
-add-apt-repository -y ppa:webupd8team/popcorntime
-add-apt-repository -y ppa:libreoffice/ppa
-add-apt-repository -y ppa:videolan/stable-daily
-
-if [ -e "/etc/apt/sources.list.d/spotify.list" ]; then
-	echo "source spotify list already exists in '/etc/apt/sources.list.d/spotify.list'"
-else
-	sh -c 'echo "deb http://repository.spotify.com/ stable non-free" > /etc/apt/sources.list.d/spotify.list'
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
-	echo "source spotify list was included in '/etc/apt/sources.list.d/spotify.list'"
+if [ $(id -u) -ne 0 ]; 
+then	
+	echo "";
+	echo -e "${On_Red}${BWhite}Este script deve ser executado como root${Color_Off}";
+	echo "Execute: "
+	echo "    sudo $0 "
+	echo "";
+	exit 1;
 fi
+
+
+
+#####################
+### CONFIGURE     ###
+#####################
+
+clear; 
+echo -e "${Green}-------------------------------------------------------------------------${Color_Off}";
+echo -e "${Green}- Configurando repositórios ${Color_Off}";
+echo -e "${Green}-------------------------------------------------------------------------${Color_Off}";
+find packages/ -type f | sort | while read SCRT; 
+do 
+	bash $SCRT info; 
+done; 
+echo "";
+
 
 #######################
 ### Update packages ###
 #######################
 
-apt-get update
-apt-get upgrade
-apt-get dist-upgrade
+echo -e "${Green}-------------------------------------------------------------------------${Color_Off}";
+echo -e "${Green}- Atualizando APT ${Color_Off}";
+echo -e "${Green}-------------------------------------------------------------------------${Color_Off}";
+
+#apt-get update
+#apt-get upgrade
+#apt-get dist-upgrade
+
+echo "";
 
 ########################
-### Download via apt ###
+### INSTALL          ###
 ########################
-
-# apache2 - Apache Hypertext Transfer Protocol Server
-# arj - Archiver for .arj files
-# build-essential - _____
-# gcc - GNU project C and C++ compiler
-# git - the stupid content tracker
-# gitk - The Git repository browser
-# gparted - Gnome partition editor for manipulating disk partitions
-# hardinfo - shows hardware information in a GTK+ window
-# htop - interactive process viewer
-# iptraf - Interactive Colorful IP LAN Monitor
-# linux-firmware-nonfree - _____
-# lunzip - small decompressor for lzip files
-# lzip - reduces the size of files
-# make - GNU make utility to maintain groups of programs
-# npm - node package manager
-# oracle-java8-installer - _____
-# oracle-java8-set-default - _____
-# p7zip-rar - _____
-# php5 - ______
-# popcorn-time - _____
-# python - an interpreted, interactive, object-oriented programming language
-# python-pip - A tool for installing and managing Python packages
-# rar - archive files with compression
-# sharutils - _____
-# spotify-client - _____
-# ubuntu-restricted-extras - _____
-# unace - extract, test and view ACE archives
-# unetbootin - program to install Linux/BSD distributions to a partition or USB drive
-# vim - Vi IMproved, a programmers text editor
-# vlc - Popular media player
-# whois - client for the whois directory service
-apt-get -y install \
-	apache2 \
-	arj \
-	build-essential \
-	gcc \
-	git \
-	gitk \
-	gparted \
-	hardinfo \
-	htop \
-	iptraf \
-	linux-firmware-nonfree \
-	lunzip \
-	lzip \
-	make \
-	npm \
-	oracle-java8-installer \
-	oracle-java8-set-default \
-	p7zip-rar \
-	php5 \
-	popcorn-time \
-	python \
-	python-pip \
-	rar \
-	sharutils \
-	spotify-client \
-	ubuntu-restricted-extras \
-	unace \
-	unetbootin \
-	vim \
-	vlc \
-	whois
-	
-
-#######################
-### Direct download ###
-#######################
-
-# peco vLATEST - Simplistic interactive filtering tool
-if which peco > /dev/null; then
-	echo "peco is already installed"
-else
-	rm -f /tmp/peco_linux_amd64.tar.gz && \
-	LATEST=$(curl -s https://api.github.com/repos/peco/peco/releases/latest | grep 'browser_' | cut -d\" -f4 | grep peco_linux_amd64.tar.gz) && \
-	VERSION=$(echo $LATEST | cut -d/ -f8) && \
-	wget ${LATEST} -P /tmp && \
-	tar -zxf /tmp/peco_linux_amd64.tar.gz -C /tmp && \
-	cp -p /tmp/peco_linux_amd64/peco /usr/bin && \
-	rm -rf /tmp/peco_linux_amd64/ && \
-	rm -f /tmp/peco_linux_amd64.tar.gz && \
-	echo "peco ${VERSION} was installed sucessfully"
-fi
-
-# atom - Atom is a hackable text editor for the 21st century
-if which  atom > /dev/null; then
-	echo "atom is already installed"
-else
-	PACKAGE=/tmp/atom-amd64.deb;
-
-	rm -f ${PACKAGE} && \
-	wget -t0 https://atom.io/download/deb -O ${PACKAGE} && \
-	dpkg -i ${PACKAGE} && \
-	rm -f ${PACKAGE} && \
-	VERSION=$(dpkg -I ${PACKAGE} | grep Version | cut -d: -f2) && \
-	echo "atom v${VERSION##*( )} was installed sucessfully"
-
-	echo "Upgrade apm packages"
-	apm upgrade --confirm false
-fi
-
-# Google Chrome 
-if which google-chrome > /dev/null; then
-	echo "Google chrome is already installed"
-else 
-	if [[ $(getconf LONG_BIT) = "64" ]]
-	then
-		echo "Installing Google Chrome 64bit" && \
-		wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-		dpkg -i google-chrome-stable_current_amd64.deb && \
-		rm -f google-chrome-stable_current_amd64.deb && \
-		echo "Google Chrome was installed sucessfully"
-	else
-		echo "Installing Google Chrome 32bit" && \
-		wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb && \
-		dpkg -i google-chrome-stable_current_i386.deb && \
-		rm -f google-chrome-stable_current_i386.deb && \
-		echo "Google Chrome was installed sucessfully"
-	fi
-fi
+echo -e "${Green}-------------------------------------------------------------------------${Color_Off}";
+echo -e "${Green}- Instalando ${Color_Off}";
+echo -e "${Green}-------------------------------------------------------------------------${Color_Off}";
+find packages/ -type f | sort | while read SCRT; 
+do 
+	bash $SCRT info;
+done; 
 
