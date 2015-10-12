@@ -25,7 +25,6 @@
 #####################
 
 add-apt-repository -y ppa:webupd8team/java
-add-apt-repository -y ppa:webupd8team/popcorntime
 add-apt-repository -y ppa:libreoffice/ppa
 add-apt-repository -y ppa:videolan/stable-daily
 
@@ -100,7 +99,6 @@ apt-get -y install \
 	oracle-java8-set-default \
 	p7zip-rar \
 	php5 \
-	popcorn-time \
 	python \
 	python-pip \
 	rar \
@@ -112,7 +110,7 @@ apt-get -y install \
 	vim \
 	vlc \
 	whois
-	
+
 
 #######################
 ### Direct download ###
@@ -150,10 +148,10 @@ else
 	apm upgrade --confirm false
 fi
 
-# Google Chrome 
+# Google Chrome
 if which google-chrome > /dev/null; then
 	echo "Google chrome is already installed"
-else 
+else
 	if [[ $(getconf LONG_BIT) = "64" ]]
 	then
 		echo "Installing Google Chrome 64bit" && \
@@ -169,4 +167,3 @@ else
 		echo "Google Chrome was installed sucessfully"
 	fi
 fi
-
