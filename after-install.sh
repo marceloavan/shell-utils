@@ -152,7 +152,7 @@ fi
 if which google-chrome > /dev/null; then
 	echo "Google chrome is already installed"
 else
-	if [[ $(getconf LONG_BIT) = "64" ]]
+	if [ $(getconf LONG_BIT) = "64" ]
 	then
 		echo "Installing Google Chrome 64bit" && \
 		wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
