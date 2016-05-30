@@ -48,7 +48,6 @@ apt-get dist-upgrade
 ### Download via apt ###
 ########################
 
-# apache2 - Apache Hypertext Transfer Protocol Server
 # arj - Archiver for .arj files
 # build-essential - _____
 # gcc - GNU project C and C++ compiler
@@ -62,12 +61,7 @@ apt-get dist-upgrade
 # lunzip - small decompressor for lzip files
 # lzip - reduces the size of files
 # make - GNU make utility to maintain groups of programs
-# npm - node package manager
-# oracle-java8-installer - _____
-# oracle-java8-set-default - _____
 # p7zip-rar - _____
-# php5 - ______
-# popcorn-time - _____
 # python - an interpreted, interactive, object-oriented programming language
 # python-pip - A tool for installing and managing Python packages
 # rar - archive files with compression
@@ -79,8 +73,7 @@ apt-get dist-upgrade
 # vim - Vi IMproved, a programmers text editor
 # vlc - Popular media player
 # whois - client for the whois directory service
-apt-get -y install \
-	apache2 \
+apt-get -y --force-yes install \
 	arj \
 	build-essential \
 	gcc \
@@ -94,11 +87,7 @@ apt-get -y install \
 	lunzip \
 	lzip \
 	make \
-	npm \
-	oracle-java8-installer \
-	oracle-java8-set-default \
 	p7zip-rar \
-	php5 \
 	python \
 	python-pip \
 	rar \

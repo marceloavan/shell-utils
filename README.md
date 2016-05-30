@@ -12,7 +12,6 @@ It's a way to install some utils packages.
 It's necessary have root privileges ;).
 
 Using apt-get:
-- **apache2** - Apache Hypertext Transfer Protocol Server
 - **arj** - Archiver for .arj files
 - **build-essential** - _____
 - **gcc** - GNU project C and C++ compiler
@@ -26,12 +25,7 @@ Using apt-get:
 - **lunzip** - small decompressor for lzip files
 - **lzip** - reduces the size of files
 - **make** - GNU make utility to maintain groups of programs
-- **npm** - node package manager
-- **oracle-java8-installer** - _____
-- **oracle-java8-set-default** - _____
 - **p7zip-rar** - _____
-- **php5** - ______
-- **popcorn-time** - _____
 - **python** - an interpreted, interactive, object-oriented programming language
 - **python-pip** - A tool for installing and managing Python packages
 - **rar** - archive files with compression
