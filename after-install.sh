@@ -24,6 +24,13 @@
 ### PPA / Sources ###
 #####################
 
+ROOT_UID="0"
+EXC_UID="$(id -u)"
+if [ "$EXC_UID" -ne "$ROOT_UID" ]; then
+	echo "You must be root! Sorry."
+	exit 1
+fi
+
 add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:libreoffice/ppa
 add-apt-repository -y ppa:videolan/stable-daily
